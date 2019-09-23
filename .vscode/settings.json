@@ -1,0 +1,6 @@
+{
+  "python.pythonPath": "/Users/rainew/.local/share/virtualenvs/CS-Build-Week-1-1lbrAZKg/bin/python",
+  "python.linting.pylintEnabled": false,
+  "python.linting.pep8Enabled": true,
+  "python.linting.enabled": true
+}
