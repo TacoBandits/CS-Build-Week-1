@@ -99,7 +99,8 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=600)
+DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'),
+                                              conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -132,7 +133,9 @@ REST_FRAMEWORK = {
     ),
 }
 
-CORS_ORIGIN_ALLOW_ALL=True
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
