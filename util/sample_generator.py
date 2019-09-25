@@ -1,9 +1,7 @@
-# Sample Python code that can be used to generate rooms in
-# a zig-zag pattern.
-#
-# You can modify generate_rooms() to create your own
-# procedural generation algorithm and use print_rooms()
-# to see the world.
+# Tacocat is the puuuurveyor of palindromes.  She loves palindrome numbers
+# which is why she insisted on many here.
+
+import random 
 
 
 class Room:
@@ -17,10 +15,24 @@ class Room:
         self.w_to = None
         self.x = x
         self.y = y
-    def __repr__(self):
-        if self.e_to is not None:
-            return f"({self.x}, {self.y}) -> ({self.e_to.x}, {self.e_to.y})"
-        return f"({self.x}, {self.y})"
+
+    def __str__(self):
+        s_to = self.s_to
+        if s_to:
+            s_to = self.s_to.id
+        e_to = self.e_to
+        if e_to:
+            e_to = self.e_to.id
+        w_to = self.w_to
+        if w_to:
+            w_to = self.w_to.id
+        n_to = self.n_to
+        if n_to:
+            n_to = self.n_to.id
+
+
+        return f"name:{self.name}, description:{self.description}, id:{self.id}, s_to:{s_to}, e_to:{e_to}, w_to:{w_to}, n_to:{n_to},  x:{self.x}, y:{self.y}"
+
     def connect_rooms(self, connecting_room, direction):
         '''
         Connect two rooms in the given n/s/e/w direction
@@ -60,40 +72,84 @@ class World:
 
         # Start generating rooms to the east
         direction = 1  # 1: east, -1: west
+        hDirection = 1 # 1: north, -1: south  To break the 'zig-zag' pattern
 
+
+        # Cats are the theme and inspiration
+        kittyAdj = ["carpeted", "comfortable", "dank", "palatial", "rambling", "snug", "sprawling",
+                  "stark", "vaulted", "warm", "ruined", "modest" ,"lofty", "handsome",
+                  "furnished", "secure", "well-appointed", "desirable", "huge", "narrow",
+                  "oceanfront", "private", "quiet", "safe", "tasteful", "stuffy" ]
+        kittyRooms = ["Den", "Livingroom", "Garage", "Pantry", "Sewing room", "Hallway",
+                    "Kitchen", "Bedroom", "Laundry room", "Entertainment room", "Bathroom",
+                    "Patio", "Dining room"]
+
+        # Kool kitty scenarios
+        kittyMovement = ["Kitty quietly slinks her way toward the", "Kitty leaps into the", "Kitty rushes into the", 
+                          "Kitty meows walking into the", "Kitty hits the ball and it goes into the"]
+        kittyExperience = ["Ewww...a dog was in here!", "OMG catnip and tunafish!", "Look at that! Mouse droppings!",
+                           "If only there was a bird in here.", "This place needs a pillow",
+                           "I think I could nap here for a while", "I wonder what the poor cats are doing today?",
+                           "There's no one here to pet me.", "Oh, only dry food here. Pass.", "My toy isn't in here.",
+                           "This would be a good place to admire me.", "MEOW!", "Ewww...a human was in here" ]
 
         # While there are rooms to be created...
         previous_room = None
         while room_count < num_rooms:
 
-            # Calculate the direction of the room to be created
-            if direction > 0 and x < size_x - 1:
+            # Process for adjusting room direction. Depending on the randon integer 
+            newDirection = random.randint(0, 11)
+            north = hDirection >= 0
+            south = hDirection <= 0
+
+            # depending on the number picked by randint, it will dictate whether the room generation goes
+            # north, south, east, or west.
+
+            # Example. If the random int is 9, and we're going south and 
+            if newDirection > 7  and south and not self.grid[y-1][x] and y > 1:
+                room_direction = "s"
+                hDirection = -1
+                y -= 1
+            elif direction > 0 and x < size_x - 1:
                 room_direction = "e"
+                hDirection = 0
                 x += 1
-            elif direction < 0 and x > 0:
+            elif direction < 2 and x > 0 and not self.grid[y][x-1]:
+                hDirection = 0
                 room_direction = "w"
                 x -= 1
+            elif x > 1 and newDirection > 11 and north:
+                room_direction = "n"
+                hDirection = 1
+                y += 1
             else:
                 # If we hit a wall, turn north and reverse direction
-                room_direction = "n"
+                if self.grid[y+1][x]:
+                    while self.grid[y+1][x]:
+                        y += 1
+                        previous_room = self.grid[y][x]
                 y += 1
+                room_direction = "n"
+                hDirection = 1
                 direction *= -1
 
-            # Create a room in the given direction
-            room = Room(room_count, "A Generic Room", "This is a generic room.", x, y)
-            # Note that in Django, you'll need to save the room after you create it
+            # results ready to print out to user.  An example may read "Kitty leaps into the Bedroom. My toy isn't here."
+            kittyRoom = random.choice(kittyAdj) + " " + random.choice(kittyRooms)
+            roomOutput = random.choice(kittyMovement) + " " + kittyRoom + ". " + random.choice(kittyExperience)
 
-            # Save the room in the World grid
+            # results passed to constructor
+            room = Room(room_count, kittyRoom, roomOutput, x, y)
+            print(room)
+
             self.grid[y][x] = room
 
-            # Connect the new room to the previous room
             if previous_room is not None:
                 previous_room.connect_rooms(room, room_direction)
-
-            # Update iteration variables
+            if newDirection < 6 and y > 2 and self.grid[y-1][x]:
+                room.connect_rooms(self.grid[y-1][x], "s")
+            
             previous_room = room
             room_count += 1
-
 
 
     def print_rooms(self):
@@ -152,9 +208,9 @@ class World:
 
 
 w = World()
-num_rooms = 44
-width = 8
-height = 7
+num_rooms = 101
+width = 11
+height = 11
 w.generate_rooms(width, height, num_rooms)
 w.print_rooms()
 
