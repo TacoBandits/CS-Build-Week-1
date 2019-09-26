@@ -57,8 +57,8 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -132,7 +132,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-CORS_ORIGIN_WHITELIST = ['localhost', '127.0.0.1', 'tacobandits.herokuapp.com', 'jolly-perlman-0b534b.netlify.com/']
+CORS_ORIGIN_WHITELIST = ['http://localhost', 'https://tacobandits.herokuapp.com', 'https://jolly-perlman-0b534b.netlify.com']
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
