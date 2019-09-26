@@ -2,8 +2,7 @@
 # which is why she insisted on many here.
 
 import random 
-from settings import BASE_DIR
-from BASE_DIR.adventure.models import Room
+from models import Room
 
 
 # class Room(models.Model):
