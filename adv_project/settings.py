@@ -132,7 +132,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-CORS_ORIGIN_WHITELIST = ['http://localhost', 'https://tacobandits.herokuapp.com', 'https://jolly-perlman-0b534b.netlify.com']
+CORS_ORIGIN_WHITELIST = ['http://localhost', '0.0.0.0', 'https://tacobandits.herokuapp.com', 'https://jolly-perlman-0b534b.netlify.com']
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
