@@ -77,7 +77,7 @@ class World:
 
         # Cats are the theme and inspiration
         kittyAdj = ["carpeted", "comfortable", "dank", "palatial", "rambling", "snug", "sprawling",
-                  "stark", "vaulted", "warm", "ruined", "modest" ,"lofty", "handsome",
+                  "stark", "vaulted", "warm", "ruined", "modest", "lofty", "handsome",
                   "furnished", "secure", "well-appointed", "desirable", "huge", "narrow",
                   "oceanfront", "private", "quiet", "safe", "tasteful", "stuffy" ]
         kittyRooms = ["Den", "Livingroom", "Garage", "Pantry", "Sewing room", "Hallway",
