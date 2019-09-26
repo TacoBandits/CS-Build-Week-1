@@ -90,15 +90,10 @@ def say(request):
 @csrf_exempt
 @api_view(["GET"])
 def get_rooms(request):
-    rooms = rooms
-    return JsonResponse(
-        {'uuid': uuid,
-            'name': player.user.username,
-            'title': room.title,
-            'description': room.description,
-            'n_to': room.n_to,
-            's_to': room.s_to,
-            'e_to': room.e_to,
-            'w_to': room.w_to,
-            'x': room.x,
-            'y': room.y}, safe=True)
+    rooms = Room.objects.all()
+    room_list = []
+    if len(rooms) > 0:
+        for room in rooms:
+            room_list.append(
+                {"title": room.title, "description": room.description})
+    return JsonResponse({'room_list': room_list}, safe=True, status=200)
