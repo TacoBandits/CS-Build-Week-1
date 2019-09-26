@@ -95,5 +95,5 @@ def get_rooms(request):
     if len(rooms) > 0:
         for room in rooms:
             room_list.append(
-                {"title": room.title, "description": room.description})
+                {"title": room.title, "description": room.description, "e_to": room.e_to, "n_to": room.n_to, "e_to": room.e_to, "w_to": room.w_to, "x": room.x, "y": room.y, "id": room.id})
     return JsonResponse({'room_list': room_list}, safe=True, status=200)
