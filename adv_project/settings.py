@@ -57,15 +57,14 @@ SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
 
 ROOT_URLCONF = 'adv_project.urls'
@@ -99,7 +98,8 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=600)
+DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'),
+                                              conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -133,6 +133,7 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL=True
+# CORS_ORIGIN_WHITELIST = ['http://localhost', '0.0.0.0', 'https://tacobandits.herokuapp.com', 'https://jolly-perlman-0b534b.netlify.com']
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
