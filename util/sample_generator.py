@@ -1,5 +1,8 @@
 # Tacocat is the puuuurveyor of palindromes.  She loves palindrome numbers
 # which is why she insisted on many here.
+# Rooms is a list of dictionaries with room information.
+# We chose to use a list because its mutable and can be altered after its creation. We also wanted to store a lot of data in it.
+# Each room is a dictionary because so we can easily access all the values on it without having to map through anything.
 
 import random 
 
